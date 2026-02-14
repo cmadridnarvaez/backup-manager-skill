@@ -167,4 +167,24 @@ Ver: `docs/BACKUP_INTELIGENTE.md`
 
 ---
 
+## 🔧 Auto-Push a GitHub
+
+El skill incluye **auto-push** configurado para subir cambios a GitHub automáticamente.
+
+### Uso
+
+```bash
+# Después de hacer cambios en el skill:
+bash ~/.openclaw/workspace/scripts/auto_push_github.sh backup-manager
+```
+
+### Funcionamiento
+
+- Detecta cambios automáticamente
+- Crea commit con timestamp
+- Push a origin master
+- Silencioso si no hay cambios
+
+---
+
 *Skill actualizado: 14 Feb 2026*
