@@ -1,0 +1,22 @@
+{
+  "name": "backup-manager",
+  "version": "1.0.0",
+  "description": "Multi-destination backup manager for OpenClaw agents (local, S3, remote)",
+  "author": "CMD / Valentino",
+  "license": "MIT",
+  "keywords": ["backup", "s3", "rsync", "memory", "persistence"],
+  "scripts": {
+    "backup": "scripts/backup.sh",
+    "install": "scripts/install.sh",
+    "restore": "scripts/restore.sh"
+  },
+  "requirements": {
+    "local": [],
+    "s3": ["aws-cli"],
+    "remote": ["rsync", "ssh"]
+  },
+  "config": {
+    "path": "config/backup.conf",
+    "template": "config/backup.conf.example"
+  }
+}
