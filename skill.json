@@ -1,14 +1,18 @@
 {
   "name": "backup-manager",
-  "version": "1.0.0",
-  "description": "Multi-destination backup manager for OpenClaw agents (local, S3, remote)",
+  "version": "1.1.0",
+  "description": "Multi-destination backup manager with intelligent change detection (local, S3, remote, Lobster)",
   "author": "CMD / Valentino",
   "license": "MIT",
-  "keywords": ["backup", "s3", "rsync", "memory", "persistence"],
+  "keywords": ["backup", "s3", "rsync", "memory", "persistence", "lobster", "smart"],
   "scripts": {
     "backup": "scripts/backup.sh",
+    "backup-smart": "scripts/backup_memory_smart.sh",
     "install": "scripts/install.sh",
     "restore": "scripts/restore.sh"
+  },
+  "workflows": {
+    "lobster": "lobster-workflows/backup-inteligente.lobster"
   },
   "requirements": {
     "local": [],
@@ -18,5 +22,11 @@
   "config": {
     "path": "config/backup.conf",
     "template": "config/backup.conf.example"
-  }
+  },
+  "features": [
+    "smart-backup",
+    "lobster-integration",
+    "change-detection",
+    "multi-destination"
+  ]
 }

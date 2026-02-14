@@ -97,3 +97,74 @@ Ejemplo de respuesta:
 - Verifica permisos de archivos antes de backup (600/700)
 - Si detectas credenciales en archivos de backup, alerta al humano
 - Usa siempre rutas absolutas para evitar path traversal
+
+---
+
+## 🆕 Backup Inteligente con Lobster (v1.1.0)
+
+Nuevo sistema de backup que **solo ejecuta cuando detecta cambios**, ahorrando espacio y recursos.
+
+### Características
+
+- **Detección por hash MD5** - Identifica cambios reales en archivos
+- **Ejecución condicional** - Omite backup si no hay modificaciones
+- **Integración Lobster** - Aprobaciones para notificaciones detalladas
+- **0 tokens LLM** en operación normal
+- **Rotación automática** - Mantiene últimos 50 backups
+
+### Uso
+
+```bash
+# Backup inteligente manual
+bash ~/.openclaw/workspace/scripts/backup_memory_smart.sh
+
+# Con Lobster (notificación si hay cambios)
+lobster run backup-inteligente.lobster
+```
+
+### Configuración Cron
+
+Reemplaza el backup tradicional con el inteligente:
+
+```bash
+crontab -e
+
+# Comentar o eliminar:
+# */10 * * * * /bin/bash /home/cmadrid/.openclaw/workspace/scripts/backup_memory.sh
+
+# Agregar nuevo:
+*/10 * * * * /bin/bash /home/cmadrid/.openclaw/workspace/scripts/backup_memory_smart.sh >> /home/cmadrid/.openclaw/workspace/logs/lobster_backup.log 2>&1
+```
+
+### Estados
+
+| Estado | Descripción | Acción Lobster |
+|--------|-------------|----------------|
+| `success` | Archivos modificados, backup ejecutado | Notificación opcional |
+| `skipped` | Sin cambios, backup omitido | Silencioso |
+| `error` | Fallo en el proceso | Alerta inmediata |
+
+### Archivos Monitoreados
+
+- `memory/*.md` - Logs diarios
+- `MEMORY.md` - Memoria persistente
+- `TOOLS.md` - Configuración
+- `SOUL.md` - Personalidad
+- `USER.md` - Perfil usuario
+- `IDENTITY.md` - Identidad agente
+
+### Beneficios
+
+| Métrica | Tradicional | Inteligente |
+|---------|-------------|-------------|
+| Ejecuciones/día | 144 (cada 10 min) | Variable (solo cambios) |
+| Uso disco/hora | ~15 MB | ~2-5 MB (promedio) |
+| Tiempo ejecución | 2-3 segundos | <1 segundo (si no hay cambios) |
+
+### Documentación Adicional
+
+Ver: `docs/BACKUP_INTELIGENTE.md`
+
+---
+
+*Skill actualizado: 14 Feb 2026*
